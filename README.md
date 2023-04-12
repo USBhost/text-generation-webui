@@ -79,18 +79,22 @@ sudo apt install build-essential
 ```
 
 
-#### 1. Create a new conda environment
-
+#### 1. Create a new conda or python venv environment
+####Conda
 ```
 conda create -n textgen python=3.10.9
 conda activate textgen
+```
+####Python: if debian based Linux or WSL, after installing venv skip to step 3.1
+```
+sudo apt install python3-venv
 ```
 
 #### 2. Install Pytorch
 
 | System | GPU | Command |
 |--------|---------|---------|
-| Linux/WSL | NVIDIA | `pip3 install torch torchvision torchaudio` |
+| Linux/WSL | NVIDIA | `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118` |
 | Linux | AMD | `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.4.2` |
 | MacOS + MPS (untested) | Any | `pip3 install torch torchvision torchaudio` |
 
@@ -101,11 +105,22 @@ The up to date commands can be found here: https://pytorch.org/get-started/local
 * MacOS users: https://github.com/oobabooga/text-generation-webui/pull/393
 * AMD users: https://rentry.org/eq3hg
 
-#### 3. Install the web UI
+#### 3. Conda route: Install the web UI
 
 ```
 git clone https://github.com/oobabooga/text-generation-webui
 cd text-generation-webui
+pip install -r requirements.txt
+```
+#### 3.1 Python venv route: Install the web UI
+```
+git clone https://github.com/oobabooga/text-generation-webui
+cd text-generation-webui
+python3 -m venv venv
+. venv/bin/activate;
+```
+#### 3.2 Python venv route: Do step 2 and then do this
+```
 pip install -r requirements.txt
 ```
 
